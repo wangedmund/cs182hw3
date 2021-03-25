@@ -15,7 +15,7 @@ class LanguageModel(nn.Module):
 
         # Create an LSTM layer of rnn_size size. Use any features you wish.
         # We will be using batch_first convention
-        self.lstm = nn.LSTM(input_size=vocab_size, hidden_size=rnn_size, num_layers=num_layers, batch_first=True, dropout=dropout)
+        self.lstm = nn.LSTM(input_size=rnn_size, hidden_size=rnn_size, num_layers=num_layers, batch_first=True, dropout=dropout)
         # LSTM layer does not add dropout to the last hidden output.
         # Add this if you wish.
 #         self.dropout = your_code
@@ -25,7 +25,7 @@ class LanguageModel(nn.Module):
         
     def forward(self,x):
         embeds = self.embedding(x)
-        lstm_out, _ = your_code(embeds)
+        lstm_out, _ = self.lstm(embeds)
 #         lstm_drop = your_code
 #         logits = your_code
         logits = self.output(lstm_out)
